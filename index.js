@@ -27,7 +27,7 @@ const defaultSendMessage = (message, pageEmbed) => message.channel.send(pageEmbe
 
 const defaultCollectorFilter = ({ reaction, user, emojiList }) => emojiList.includes(reaction.emoji.name) && !user.bot;
 
-const defaultCollectorEndHandler = ({ paginatedEmbedMessage }) => {
+const defaultCollectorEndHandler = async ({ paginatedEmbedMessage }) => {
   if (!paginatedEmbedMessage.deleted)
     await paginatedEmbedMessage.reactions.removeAll();
 }
@@ -58,7 +58,7 @@ const paginationEmbed = async (receivedMessage, pages,
   const paginatedEmbedMessage = await sendMessage(receivedMessage, pages[currentPageIndex]);
   const reactionCollector = paginatedEmbedMessage.createReactionCollector(
     async (reaction, user) => {
-        await collectorFilter(reaction, user, emojiList)
+        return await collectorFilter({reaction, user, emojiList})
       },
       { time: timeout, ...rest }
   );
