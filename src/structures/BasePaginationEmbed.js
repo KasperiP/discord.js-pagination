@@ -1,6 +1,10 @@
 const EventEmitter = require('events');
 const PaginationEvents = require('../util/PaginationEvents');
 
+/**
+ * The base class for all PaginationEmbeds.
+ * @extends {EventEmitter}
+ */
 class BasePaginationEmbed extends EventEmitter {
 	constructor(receivedPrompt, pages, options) {
 		super();
@@ -10,13 +14,39 @@ class BasePaginationEmbed extends EventEmitter {
 		if (!receivedPrompt.channel)
 			throw new Error('The received prompt does not have a valid channel.');
 
+		/**
+		 * The client that instantiated this pagination.
+		 * @type {Client}
+		 * @readonly
+		 * @name BasePaginationEmbed#client
+		 */
 		Object.defineProperty(this, 'client', { value: receivedPrompt.client });
+
 		Object.defineProperty(this, 'user', {value: receivedPrompt.author || receivedPrompt.user });
+
 		Object.defineProperty(this, 'channel', { value: receivedPrompt.channel });
+
+		/**
+		 * The message or interaction that initiated the creation of this pagination.
+		 * @type {Message|Interaction}
+		 * @readonly
+		 * @name BasePaginationEmbed#receivedPrompt
+		 */
 		Object.defineProperty(this, 'receivedPrompt', { value: receivedPrompt });
 
+		/**
+		 * The pages for this pagination.
+		 * @type {MessageEmbed[]}
+		 * @name BasePaginationEmbed#pages
+		 */
 		this.pages = pages;
+
+		/**
+		 * The message sender for this pagination.
+		 * @type {MessageSender}
+		 */
 		this.messageSender = options.messageSender;
+
 		this.options = options;
 		this.collectorFilter = options.collectorFilter;
 		this.pageResolver = options.pageResolver;
