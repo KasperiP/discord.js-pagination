@@ -71,7 +71,7 @@ module.exports = {
       newPageEmbed
         .setTitle(`This embed is index ${newIdentifiers.pageIdentifier}!`)
         .setDescription(`That means it is page #${newIdentifiers.pageIdentifier + 1}`);
-      newPageEmbed.setFooter(`Page ${newIdentifiers.pageIdentifier + 1} / ${paginator.maxNumberOfPages}`);
+      newPageEmbed.setFooter({ text: `Page ${newIdentifiers.pageIdentifier + 1} / ${paginator.maxNumberOfPages}` });
       return newPageEmbed;
     };
 

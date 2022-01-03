@@ -200,7 +200,7 @@ module.exports = {
             .setTitle(`Pokedex #${`${pokemonResult.id}`.padStart(3, '0')} - ${newPageIdentifier}`)
             .setDescription(`Viewing ${newPageIdentifier}`)
             .setThumbnail(pokemonResult.sprites.front_default)
-            .setFooter('Information fetched from https://pokeapi.co/')
+            .setFooter({ text: 'Information fetched from https://pokeapi.co/' })
             .addField('Types', pokemonResult.types.map(typeObject => typeObject.type.name).join(', '), true)
             .addField(
               'Abilities',

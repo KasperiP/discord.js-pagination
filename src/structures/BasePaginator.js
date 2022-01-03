@@ -123,7 +123,7 @@ class BasePaginator extends EventEmitter {
       this.currentPage = await this._resolvePageEmbed(changePageArgs);
     }
     if (typeof this.footerResolver === 'function') {
-      this.currentPage.setFooter(await this.footerResolver(this));
+      this.currentPage.setFooter({ text: await this.footerResolver(this) });
     }
     this.previousIdentifiers = currentIdentifiers;
     this.currentIdentifiers = newIdentifiers;
